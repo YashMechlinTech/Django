@@ -1,0 +1,217 @@
+1.It is an architectural guideline to develop web API.
+
+2.The API which is developed using REST is known as REST API/ RESTful API. 
+
+3.client makes http request to api.
+
+4.Api will communicate to web application /database(if needed. )
+
+5.Web application / database provide requied data to API. 
+
+6.api returns response data to client . 
+Note: json, xml data, etc.
+
+7.CRUD operations are major opereations in the crud opereations . 
+for create we use the post method . 
+for read we use the get method. 
+for update we use either put(complete patch),patch (partially update)
+for delete we use the delete method. 
+
+
+STUDENTS API RESPONSE.
+
+
+1.BASE URL eg.  http://geekyshows.com/
+2.Naming Convention eg. api/
+3. Resource of Api or end point eg. students 
+
+collectively we write http://geekyshows.com/api/students
+
+Request-response. 
+
+we send the request to the api and the Api respond the data in the json format  .
+Request:   GET:/api/students
+Response:  [
+    {
+    "id":1,
+    "name":"Rahul",
+    },
+      {
+    "id":2,
+    "name":"Rohit",
+    },
+    ......
+]
+
+
+
+For getting particular studnent where 1 represent the send the data with id =1
+GET:/api/students/1
+
+
+
+for sending data in response
+
+
+
+
+
+
+
+**********Django Rest Framework*************
+
+
+Django rest Framework is a powerful toolkit for building web apis
+
+
+The web browsable api is huge usability win for your developers 
+
+
+Authentication policies Present including pakages for OAuth1 and OAuth2
+
+
+Serialization that suppoorts both ORM and non -ORM data sources.
+
+
+Customizable all the way down-just use regular function based views if yuou dont need the more powerful features. 
+
+
+Extensive documentation and great community support . 
+
+
+Used and trusted by internationally , recognized companies including mozilla redhat , heroku, and eventbrite.
+
+
+
+adding the django rest Framework in the installed apps 
+
+INSTALLED_APPS=[...  , 'rest_framework', 
+]
+
+**********Python json******************
+
+python has the built in packgage called json ,which is used to work with the json data. 
+dumps(data)-This is used to convert python object into json string . 
+Example.
+To use the json package first we have to import it.
+import json 
+
+python_data={'name':'sonam' , 'roll':101}
+
+json_data=json.dumps(python_data)
+
+json always use the double quotes . 
+
+
+
+loads(data)=This is used to parse the json string . 
+Example :- import json 
+json_data={"name":"sonam", "roll":101}
+
+
+parsed_data=json.loads(json_data)//into the single quotes. 
+
+
+so to convert from the normal data to json we use the json.dumps method and vice versa i.e from json to normal data we use the json.loads method .
+
+
+**********Serializers**************
+
+
+In django rest framework , serializers are responsible for converting complex data such as querysets and model instances to native python datatypes (called serialization ) that can be easily rendered into json , xml or other content types which is understandable by front end . 
+
+Serializers are also responsible for deserialization which means it allows parsed data to be converted back into complex types , after first valildating the incoming data. 
+
+Serialization 
+Deserialization 
+
+
+*********Serializer class************
+
+A serializer class is very similiar to a django form and model form class and includes similiar validation flags on the various fields , such as required max_length and default . 
+
+DRF provides a Serializer class which gives you a powerful , generic way to control the output of your respnose , as well as a ModelSerializer class which provides a useful shortcut for creating serializers that deal with the model instances and querysets. 
+
+
+**How to crate the serializer class****
+
+
+in models.py 
+from django.db import models
+class Student(model.Model):
+name=models.CharField(max_length=100)
+roll=models.IntegerField()
+city=models.CharField(max_length=100)
+
+
+
+in serializers file . 
+from rest_framework import serializers . 
+class StudentSerializer(serializers.Serizers): 
+    name=serializers.CharField(max_length)
+    roll=serializers.IntegerField()
+    city=serializers.CharField(max_length=100)
+
+
+The process of converting the complex data such as querysets and model instances to native python datatypes are called as serialization in DRF.. 
+
+for eg creating the serializers. 
+
+creating model instance students
+stu=Student.objects.get(id=1)
+
+Converting model instance stu to python Dict/serializing object. 
+serializer=StudentSerializer(stu)
+
+
+
+
+
+//creating the serializer to convert the complex queryset into native python object 
+
+stu=Student.objects.all()
+
+..Converting query set stu to List of python Diet/Serializing queryset
+serializer=StudentSerializer(stu,many=True)
+
+
+
+Json renderer :::::::::::::::
+This is used to render serialised data into json which is understandable by Front End. 
+Import JSONRenderer
+from rest_framework.renderers import JSONRenders
+json_data=JSONRenderer().render(serializer.data)
+
+
+
+table's model Object=> convert to python dictionary and then convert it to=> Json data . 
+
+step1. 
+getting model object. 
+stu=Student.object.get(id=1)
+
+step2.
+converting into the python dict. 
+serializer=studnentSerializer(stu)
+
+step3. 
+Render to Json . 
+json_data=JSONRenderer().render(serializer.data)
+
+
+
+JSONResponse():::::
+
+JSONResponse(data,encoder=DjangoJSONEncoder,safe=True,json_dumps_params=none,**kwargs )
+
+its default content type header is set to application/json .
+
+An HttpResponse subclass helps to create a JSON-encoded response. It inherits most behaviour from its superclass with a couple differences. 
+
+
+The first parameter data, should be a dict instance. if the safe parameter is set to false it can be any JSON-serializable object. 
+
+
+The encoder which defaults to django.core.serializers.json.DjangoJSONEncoder,will be used to serialize the data. 
+The safe boolean parameter defaults to true, if it is set to false any object can be passed for serialization (otherwise only diet instances are allowed ).If safe is true and a non diet object is passed is passed as the first argument . 
+the json_dumps _params parameter is a dictionary of keryword arguments to pass to the json_dumps() call used to genreate the response . 
