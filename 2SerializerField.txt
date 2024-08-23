@@ -1,0 +1,43 @@
+Charfield:A text representation . Optionally validates the text to be shorter than max_length and longer than min length.
+Syntax: Charfield(max_length=None,min_length=None,allow_blank=True,trim_whitespace=True)
+
+
+max_length=validates that the input contains no more than this number of characters.
+min_length=validates that the input contains no fewer than the number of the characters. 
+
+allow null and allow_blank are the same properties that are being used in charfield oftenly. 
+
+
+
+
+Integer Field:An integer representation 
+Syntax:- IntegerField(max_value=None,min_value=None)
+
+same thing is in the FloatField()
+
+
+
+DecimalField(max_digits,decimal_places,coerce_to_string=None,max_value=None,min_value=None)
+
+
+SlugField-A Regex Field that validates the input against the pattern [a-zA-Z0-9_-]+
+Syntax:- SlugField(max_length=50,min_length=None,allow_blank=True)
+
+
+In Django, the RegexField is a field for validating that a string matches a specific regular expression (regex) pattern. It is used in forms and serializers to enforce a certain format for text input.
+
+
+
+
+CoreArguments::::
+label:-A short text string that may be used as the name fo the field in HTML form fields for othe descriptive elements.
+
+Validators-A list of validator functions which should be applied to the incoming field input and which either raise a validation error or simply return . Validator functions should typically raise serialiszers . ValidationError, but Django built in ValidationError is also supported for compatibility with validators defined in the django codebaseor third party django packages. 
+
+error_messages-A dictionary of error codes to error messages. 
+
+
+help_text-A text-string that may be  used as a description of the field in the HTML form fields or other descriptive elements. 
+
+
+

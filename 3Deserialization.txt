@@ -1,0 +1,73 @@
+Serializers are responsible for deserialization which means it allows parsed data to be converted back into complex types,after first validatiing the incoming data.  
+
+
+json data=> again to the complex type 
+
+
+
+
+workflow>>>>>>>
+
+
+
+complexDataType=>python nativeDataType(using serialilzation)=>JsonData(Render into Json)
+
+
+
+JsonData=>PythonNativeDataType(parse data)=>complexDataType(deserialization)
+
+
+
+
+
+
+
+
+BytesIO()/////////////////////////////
+
+A stream implementation using an in-memory bytes buffer.It inherits BufferedIOBase.The buffer is discarded when the close() method is called. 
+import io 
+stream=io.BytesIO(json_data)
+
+
+manipulating file uploads before saving them to a database or file system.
+
+
+
+JSONRespones() This is used to parse the json dat to python native datatype. 
+
+
+from rest_framework.parser import JSONparser
+parsed_data=JSONParser().parse(stream)
+
+
+
+//Deserialization ..
+Deserialization allows the parsed data to be converted  back into complex types. after first validating the incoming dataa. 
+
+step1. creating serializer object. 
+serializer=StudentSerializer(data=parsed_data)
+step2.Validated data
+serialiszer.is_valid()
+step3.serilaizer.validated_data
+serializer.errors
+
+
+//creatingdata /insert data
+
+from rest_framework import serializers
+class StudentSerializer(serialiszers.Serializer):
+
+name=serialiszers.Charfield(max_length=100)
+roll=serialiszers.IntererField()
+city=serializers.Charfield(max_length=100)
+
+def create(self,validate_data):
+      return Student.objects.create(**validate_data)
+
+
+
+      //create , update main deserialization use hota hai because we are writing data into the database . 
+
+
+      //in read we use the serialization .. 
