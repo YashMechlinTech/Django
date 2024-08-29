@@ -4,10 +4,13 @@ from rest_framework.parsers import JSONParser
 from .serializers import *
 from .models import Student
 from .serializers import StudentSerialilzer
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
 
 # Create your views here.
 
 
+@csrf_exempt
 def student_api(request):
     if request.method == "GET":
         json_data = request.body
@@ -17,37 +20,22 @@ def student_api(request):
         if id is not None:
             stu = Student.objects.get(id=id)
             serializer = StudentSerialilzer(stu)
-            return JsonResponse(
-                serializer.data, content_type="application/json", safe=False
-            )
-        stu = Student.objects.all()
+            return Response(serializer.data)
+        stu = Student.objects.all()  # if we dont want any id .
         serializer = StudentSerialilzer(stu, many=True)
-        return JsonResponse(
-            serializer.data, content_type="application/json", safe=False
-        )
-    #creating an data point . 
-    if (request.method=='POST'):
-        json_data=request.body
-        stream=io.BytesIO(json_data)
-        pythondata=JSONParser().parse(stream)
-        serializer=StudentSerialilzer(data=pythondata,many=True)
+        return Response(serializer.data)
+    # creating an data point .
+
+    if request.method == "POST":
+        json_data = request.body
+        stream = io.BytesIO(json_data)
+        pythondata = JSONParser().parse(stream)
+        serializer = StudentSerialilzer(data=pythondata)
         if serializer.is_valid():
             serializer.save()
-            res={'msg':'data has been created'}
-            return JsonResponse(res,content_type='application/json',safe=False)
-    return JsonResponse(serializer.errors,content_type='application/json',safe=False)
-    
-def update_items(request, pk):
-    item = Student.objects.get(pk=pk)
-    data = StudentSerialilzer(instance=item, data=request.data)
- 
-    if data.is_valid():
-        data.save()
-        return JsonResponse(data.data,safe=False)
-    else:
-        return JsonResponse(data.errors,safe=False)
-    
-def delete_items(request, pk):
-    item = Student.objects.get(id=pk)
-    item.delete()
-    return JsonResponse({'msg':'success'},safe=False)
+            return Response({"msg": "Data has been added to the table"}, status=200)
+        return Response(serializer.errors, status=400)
+    return Response(
+        {"msg": "An error occured nor get request nor post request accepted. "},
+        status=400,
+    )
