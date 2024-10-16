@@ -52,7 +52,7 @@ class UpdateTodo(graphene.Mutation):
         try:
             todo = Todo.objects.get(pk=id)
         except Todo.DoesNotExist:
-            raise Exception("Todo not found in database")t
+            raise Exception("Todo not found in database")
         if title is not None:  # if i got some arguments for update then update.
             todo.title = title
         if description is not None:
