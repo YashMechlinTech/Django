@@ -1,3 +1,16 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "editor.fontFamily": "Ubuntu Mono",
+    "editor.codeLensFontFamily": "Ubuntu Mono",
+    "terminal.integrated.fontFamily": "Ubuntu Mono",
+    "editor.inlayHints.fontFamily": "Ubuntu Mono",
+    "editor.inlineSuggest.fontFamily": "Ubuntu Mono",
+    "debug.console.fontFamily": "Ubuntu Mono",
+    "scm.inputFontFamily": "Ubuntu Mono",
+    "notebook.output.fontFamily": "Ubuntu Mono",
+    "chat.editor.fontFamily": "Ubuntu Mono",
+    "gitlens.currentLine.fontFamily": "Ubuntu Mono",
+    "gitlens.blame.fontFamily": "Ubuntu Mono",
+    "markdown.preview.fontFamily": "Ubuntu Mono",
+    "editor.experimentalInlineEdit.fontFamily": "Ubuntu Mono"
 }
