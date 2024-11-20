@@ -12,5 +12,9 @@
     "gitlens.currentLine.fontFamily": "Ubuntu Mono",
     "gitlens.blame.fontFamily": "Ubuntu Mono",
     "markdown.preview.fontFamily": "Ubuntu Mono",
-    "editor.experimentalInlineEdit.fontFamily": "Ubuntu Mono"
+    "editor.experimentalInlineEdit.fontFamily": "Ubuntu Mono",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
+    "terminal.integrated.smoothScrolling": true,
+    "editor.cursorBlinking": "smooth"
 }
